@@ -26,7 +26,6 @@
           Cadastrar novos
         </b-button>
       </b-col>
-
     </b-row>
 
     <div class="box">
