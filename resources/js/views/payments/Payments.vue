@@ -23,7 +23,7 @@
           variant="primary"
           @click="$bvModal.show('bv-modal-example')"
         >
-          Cadastrar novo
+          Cadastrar novos
         </b-button>
       </b-col>
 
