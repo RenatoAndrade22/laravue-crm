@@ -26,6 +26,8 @@ Route::namespace('Api')->group(function() {
         Route::post('client', 'ClientController@store');
         Route::get('client', 'ClientController@index');
 
+        Route::apiResource('company', 'CompanyController');
+
         // Auth routes
         Route::get('auth/user', 'AuthController@user');
         Route::post('auth/logout', 'AuthController@logout');

@@ -29,7 +29,7 @@
     </b-row>
 
     <div class="box">
-      <b-table v-if="table" hover :bordered="true" :items="list" :fields="fields">
+      <b-table v-if="table" hover :bordered="true" :items="items" :fields="fields">
         <template #cell(actions)="row">
           <b-button size="sm" variant="secondary">Ver</b-button>
           <b-button size="sm" variant="secondary">Editar</b-button>
@@ -156,6 +156,7 @@
 </template>
 
 <script>
+
 import {
   BRow, BCol, BFormGroup, BFormInput, BFormCheckbox, BForm, BButton, BTable,
 } from 'bootstrap-vue';
@@ -164,7 +165,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 export default {
-  name: 'Record',
+  name: 'Table',
   components: {
     BTable,
     BRow,
@@ -175,11 +176,15 @@ export default {
     BForm,
     BButton,
   },
+  props: {
+    items: {
+
+    },
+  },
   data() {
     return {
       table: true,
       fields: ['name', 'phone', 'cpf', 'actions'],
-      items: [],
       search: null,
       form: {
         name: null,
@@ -191,73 +196,13 @@ export default {
       },
     };
   },
-
-  computed: {
-    list(){
-      let list = this.items;
-
-      if (this.search){
-        list = this.collect(list).filter((item) => {
-          if (item.name.search(this.search) >= 0 || item.phone.search(this.search) >= 0 || item.cpf.search(this.search) >= 0){
-            return true;
-          } else {
-            return false;
-          }
-        });
-        list = list.items;
-      }
-
-      return list;
-    },
-  },
-
-  created() {
-    this.getClients();
-  },
-
   methods: {
     record(){
-      this.axios.post('api/client', this.form).then((resp) => {
-        console.log('aqqq', resp.data);
-        this.items.push(resp.data);
-        this.$bvModal.hide('bv-modal-example');
-      });
     },
-
-    getClients(){
-      this.axios.get('api/client').then((items) => {
-        this.items = items.data;
-      });
-    },
-
   },
 };
 </script>
 
 <style scoped>
-.box{
-  padding: 20px;
-  position: relative;
-  -webkit-box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
-  box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(34,41,47,.125);
-  border-radius: .428rem;
-  transition: all .3s ease-in-out,background 0s,color 0s,border-color 0s;
-}
-.form p{
-  margin-bottom: 0;
-  margin-left: 5px;
-  line-height: 32px;
-  font-size: 13px;
-}
 
-.input_form{
-  margin-bottom: 23px;
-}
-
-.required{
-  color: red;
-}
 </style>

@@ -15,20 +15,8 @@ class Client extends Authenticatable
         'name',
         'phone',
         'email',
-        'cpf',
-        'address_id',
-        'company_id',
     ];
 
     protected $searchableFields = ['*'];
 
-    public function address()
-    {
-        return $this->belongsTo(Address::class);
-    }
-
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
 }

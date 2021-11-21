@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ClientsCpf extends Migration
+class UpdateCompanyActiveUpdateUserId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class ClientsCpf extends Migration
      */
     public function up()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->string('cpf')->nullable()->default(null);
-        });
+//        Schema::table('companies', function (Blueprint $table) {
+//            $table->dropColumn(['user_id']);
+//        });
     }
 
     /**

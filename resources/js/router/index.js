@@ -96,13 +96,13 @@ export const constantRoutes = [
   {
     path: '',
     component: Layout,
-    redirect: 'clientes',
+    redirect: 'transportadoras',
     children: [
       {
-        path: 'clientes',
-        component: () => import('@/views/clients/Record'),
-        name: 'clientes',
-        meta: { title: 'Clientes', icon: 'user', noCache: false },
+        path: 'transportadoras',
+        component: () => import('@/views/shipping_company/index'),
+        name: 'transportadoras',
+        meta: { title: 'Transportadoras', icon: 'user', noCache: false },
       },
     ],
   },

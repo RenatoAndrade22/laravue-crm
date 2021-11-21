@@ -19,7 +19,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        return Client::query()->where('company_id', Auth::user()->company_id)->get();
+        return Client::all();
     }
 
     /**
@@ -28,19 +28,10 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $request['company_id'] = Auth::user()->company_id;
         $client = new Client();
         $client->fill($request->all());
         $client->saveOrFail();
         return $client;
-//        $this->authorize('create', Client::class); Auth::user()
-//
-//        $validated = $request->validated();
-
-
-//        $client = Client::create($request->all());
-//
-//        return new ClientResource($client);
     }
 
     /**

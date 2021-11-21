@@ -14,10 +14,15 @@ class CreateCompaniesTable extends Migration
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
-            $table->string('cnpj', 14);
-            $table->unsignedBigInteger('address_id')->nullable();
+            $table->string('cnpj');
+            $table->string('active');
+
+            $table->unsignedBigInteger('user_id')->nullable()->default(null);
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
 
             $table->timestamps();
         });

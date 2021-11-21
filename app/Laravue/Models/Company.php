@@ -1,42 +1,27 @@
 <?php
 
-namespace App\Models;
+namespace App\Laravue\Models;
 
-use App\Models\Scopes\Searchable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
+use Laravel\Sanctum\HasApiTokens;
 
-class Company extends Model
+class Company extends Authenticatable
 {
-    use HasFactory;
-    use Searchable;
+    use Notifiable, HasRoles, HasApiTokens;
 
-    protected $fillable = ['name', 'cnpj', 'address_id'];
+    protected $table = 'companies';
+
+    protected $fillable = [
+        'name',
+        'cnpj',
+        'active',
+        'user_id',
+        'phone',
+        'email',
+    ];
 
     protected $searchableFields = ['*'];
 
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
-
-    public function receiveds()
-    {
-        return $this->hasMany(payment::class);
-    }
-
-    public function address()
-    {
-        return $this->belongsTo(Address::class);
-    }
-
-    public function providers()
-    {
-        return $this->hasMany(Provider::class);
-    }
-
-    public function clients()
-    {
-        return $this->hasMany(Client::class);
-    }
 }
