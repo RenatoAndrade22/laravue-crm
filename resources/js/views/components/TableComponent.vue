@@ -31,8 +31,7 @@
     <div class="box">
       <b-table v-if="table" hover :bordered="true" :items="list" :fields="fields">
         <template #cell(ações)="row">
-          <b-button size="sm" variant="secondary">Ver</b-button>
-          <b-button size="sm" variant="secondary">Editar</b-button>
+          <b-button size="sm" @click="edit(row.item.id)" variant="secondary">Editar</b-button>
         </template>
       </b-table>
     </div>
@@ -54,6 +53,13 @@
             v-model="item.value"
             :placeholder="item.placeholder ? item.placeholder : item.label"
           />
+          <the-mask
+            class="form-control input"
+            v-if="item.type === 'mask'"
+            :mask="item.mask"
+            v-model="item.value"
+            name="cnpj"
+          />
         </b-col>
 
         <!-- submit and reset -->
@@ -64,7 +70,8 @@
             class="mr-1 mt-4 float-end"
             @click="record"
           >
-            Cadastrar
+            <span v-if="!edit_id">Cadastrar</span>
+            <span v-else >Atualizar</span>
           </b-button>
         </b-col>
 
@@ -79,12 +86,15 @@ import {
   BRow, BCol, BFormGroup, BFormInput, BFormCheckbox, BForm, BButton, BTable,
 } from 'bootstrap-vue';
 
+import {TheMask} from 'vue-the-mask'
+
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 export default {
   name: 'TableComponent',
   components: {
+    TheMask,
     BTable,
     BRow,
     BCol,
@@ -105,15 +115,9 @@ export default {
     return {
       table: true,
       search: null,
+      edit_item: null,
       slug: null,
-      form: {
-        name: null,
-        phone: null,
-        email: null,
-        cpf: null,
-        address_id: null,
-        company_id: null,
-      },
+      edit_id: null,
     };
   },
   computed: {
@@ -130,7 +134,6 @@ export default {
         });
         list = list.items;
       }
-
       return list;
     },
   },
@@ -140,10 +143,35 @@ export default {
     }
   },
   methods: {
+
     record(){
       this.$bvModal.hide('bv-modal-example');
-      this.$emit('emitform', this.form);
+      this.$emit('emitform', this.form, this.edit_id);
+      this.edit_id = null
     },
+
+    edit(id){
+
+      this.edit_id = id
+
+      let j = this.collect(this.list).where('id', id).first()
+
+      let i = this.collect(Object.keys(j)).map((item)=>{
+
+        let i = this.collect(this.form).where('label', item).first()
+
+        if (i){
+          i.value = j[i.label]
+        }
+        return i
+      })
+
+      i = this.collect(i.items).filter(n => n)
+
+      this.form = i.items
+      this.$bvModal.show('bv-modal-example');
+
+    }
   },
 };
 </script>

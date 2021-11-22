@@ -30,8 +30,12 @@ class CompanyController extends Controller
 
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $company = Company::findOrFail($id);
+        $company->fill($request->all());
+        $company->saveOrFail();
+        return $company;
     }
 
 }

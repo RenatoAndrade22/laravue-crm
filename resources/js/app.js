@@ -9,7 +9,7 @@ import router from '@/router';
 import i18n from './lang'; // Internationalization
 import '@/icons'; // icon
 import '@/permission'; // permission control
-import { ModalPlugin } from 'bootstrap-vue'
+import { ToastPlugin, ModalPlugin } from 'bootstrap-vue'
 import * as filters from './filters'; // global filters
 import axios from 'axios'
 import collect from 'collect.js';
@@ -17,6 +17,7 @@ import collect from 'collect.js';
 Vue.prototype.axios = axios
 Vue.prototype.collect = collect
 
+Vue.use(ToastPlugin)
 Vue.use(ModalPlugin)
 
 Vue.use(ElementUI, {
