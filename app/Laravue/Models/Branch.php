@@ -7,19 +7,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 
-class Company extends Authenticatable
+class Branch extends Authenticatable
 {
     use Notifiable, HasRoles, HasApiTokens;
 
-    protected $table = 'companies';
+    protected $table = 'branch';
 
     protected $fillable = [
         'name',
-        'cnpj',
-        'status',
-        'user_id',
         'phone',
-        'email',
+        'cnpj',
+        'company_id',
+        'status',
     ];
 
     protected $searchableFields = ['*'];

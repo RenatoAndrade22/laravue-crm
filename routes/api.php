@@ -27,6 +27,7 @@ Route::namespace('Api')->group(function() {
         Route::get('client', 'ClientController@index');
 
         Route::apiResource('company', 'CompanyController');
+        Route::apiResource('branch', 'BranchController');
 
         // Auth routes
         Route::get('auth/user', 'AuthController@user');

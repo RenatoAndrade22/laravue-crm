@@ -3,8 +3,8 @@
     :items="list"
     :fields="fields"
     :form="form"
-    title="Transportadoras"
-    slug="transportadora"
+    title="Filiais"
+    slug="filial"
     @emitform="record"
   />
 </template>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       list: [],
-      fields: ['nome', 'CNPJ', 'telefone', 'email', 'status', 'ações'],
+      fields: ['nome', 'CNPJ', 'telefone', 'status', 'ações'],
       form: [
         {
           col: '6',
@@ -52,14 +52,6 @@ export default {
         },
         {
           col: '6',
-          label: 'email',
-          value: null,
-          type: 'input',
-          required: true,
-          placeholder: null,
-        },
-        {
-          col: '6',
           label: 'status',
           value: 1,
           type: 'select',
@@ -81,14 +73,13 @@ export default {
   methods: {
 
     getClients(){
-      this.axios.get('api/company').then((items) => {
+      this.axios.get('api/branch').then((items) => {
         this.list = this.collect(items.data).map((item) => {
           return {
             id: item.id,
             nome: item.name,
             CNPJ: item.cnpj,
             telefone: item.phone,
-            email: item.email,
             status: item.status,
           };
         });
@@ -105,13 +96,12 @@ export default {
     },
 
     update(form, id){
-      this.axios.put('api/company/' + id,
+      this.axios.put('api/branch/' + id,
         {
           name: form[0].value,
           cnpj: form[1].value,
           phone: form[2].value,
-          email: form[3].value,
-          status: form[4].value,
+          status: form[3].value,
         }
       ).then((resp) => {
         this.list = this.collect(this.list).map((item) => {
@@ -121,7 +111,6 @@ export default {
               nome: resp.data.name,
               CNPJ: resp.data.cnpj,
               telefone: resp.data.phone,
-              email: resp.data.email,
               status: resp.data.status,
             };
           }
@@ -132,13 +121,12 @@ export default {
     },
 
     create(form){
-      this.axios.post('api/company',
+      this.axios.post('api/branch',
         {
           name: form[0].value,
           cnpj: form[1].value,
           phone: form[2].value,
-          email: form[3].value,
-          status: form[4].value,
+          status: form[3].value,
         }
       ).then((resp) => {
         this.list.push({
@@ -146,7 +134,6 @@ export default {
           nome: resp.data.name,
           CNPJ: resp.data.cnpj,
           telefone: resp.data.phone,
-          email: resp.data.email,
           status: resp.data.status,
         });
       });

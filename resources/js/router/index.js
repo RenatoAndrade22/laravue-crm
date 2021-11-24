@@ -106,7 +106,19 @@ export const constantRoutes = [
       },
     ],
   },
-
+  {
+    path: '',
+    component: Layout,
+    redirect: 'filiais',
+    children: [
+      {
+        path: 'filiais',
+        component: () => import('@/views/branch/index'),
+        name: 'filiais',
+        meta: { title: 'Filiais', icon: 'user', noCache: false },
+      },
+    ],
+  },
   {
     path: '',
     component: Layout,
@@ -120,7 +132,6 @@ export const constantRoutes = [
       },
     ],
   },
-
   {
     path: '',
     component: Layout,
